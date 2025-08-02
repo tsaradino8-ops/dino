@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSARA DINO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .profile-section {
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            margin: 0 auto 15px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid white;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: rgba(255,255,255,0.1);
+            padding-left: 30px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 0;
+            background: blanchedalmond;
+            min-height: 100vh;
+        }
+
+        .content-section {
+            padding: 40px;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            color: #8b5cf6;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 300;
+            border-bottom: 2px solid #8b5cf6;
+            padding-bottom: 10px;
+        }
+
+        /* Home Section */
+        .home-section {
+            text-align: center;
+            padding: 60px 40px;
+            background:grey;
+            color: white;
+        }
+
+        .home-title {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .home-subtitle {
+            font-size: 1.5em;
+            color: #f1f5f9;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin: 20px 0;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+
+        .contact-info a {
+            color: #orangered;
+            text-decoration: none;
+        }
+
+        .address {
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-contact {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-contact:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        /* Experience Section */
+        .experience-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .experience-period {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .experience-role {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .experience-tasks {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-tasks li {
+            margin: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #6b7280;
+        }
+
+        .experience-tasks li::before {
+            content: "•";
+            color: #8b5cf6;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 2s ease-in-out;
+            width: 0;
+        }
+
+        /* Skill specific colors */
+        .html { background: #3b82f6; }
+        .css { background: #3b82f6; }
+        .javascript { background: #3b82f6; }
+        .php { background: #3b82f6; }
+        .angular { background: #3b82f6; }
+        .bootstrap { background: #3b82f6; }
+
+        .skill-progress.html { background: #3b82f6; }
+        .skill-progress.css { background: #3b82f6; }
+        .skill-progress.javascript { background: #3b82f6; }
+        .skill-progress.php { background: #3b82f6; }
+        .skill-progress.angular { background: #3b82f6; }
+        .skill-progress.bootstrap { background: #3b82f6; }
+
+        /* Interest items */
+        .interest-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .interest-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .interest-description {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .contact-section .contact-info {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        .contact-section a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .home-title {
+                font-size: 2em;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile-section">
+                <div class="profile-img">
+                    <img src="FB_IMG_17388702971579048(1)(1)(1).jpg" alt="Photo de profil" width="200" />
+                </div>
+                <div class="name">TSARA DINO</div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">MOI</a></li>
+                <li><a href="#experiences" class="nav-link">EXPÉRIENCES</a></li>
+                <li><a href="#formations" class="nav-link">FORMATIONS</a></li>
+                <li><a href="#competences" class="nav-link">COMPÉTENCES</a></li>
+                <li><a href="#langues" class="nav-link">LANGUES PARLÉES</a></li>
+                <li><a href="#centres" class="nav-link">CENTRES D'INTÉRÊT</a></li>
+                <li><a href="#qualites" class="nav-link">QUALITÉS</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Home Section -->
+            <div id="home" class="content-section home-section">
+                <h1 class="home-title">TSARA DINO</h1>
+                <h2 class="home-subtitle">DÉVELOPPEUR WEB</h2>
+                
+                <div class="contact-info">
+                    <p class="contact-info">Email: <a href="tsaradino8@gmail.com">tsaradino8@gmail.com</a></p>
+                    <p class="address">Développeur Front-end | HTML & CSS</p>
+                    <p class="address">Passionné par le développement web,</p>
+                    <p class="address">je crée des sites propres et responsives.</p>
+                    <p class="address">Je suis motivé et toujours prêt à apprendre de nouvelles compétences.</p>
+                </div>
+                
+                <div class="buttons">
+                    <a href="#contact" class="btn btn-contact">✉️ Contactez-Moi</a>
+                </div>
+            </div>
+
+            <!-- Experiences Section -->
+            <div id="experiences" class="content-section">
+                <h2 class="section-title">EXPÉRIENCES</h2>
+                
+                <div class="experience-item">
+                    <div class="experience-period">2021 - 2023</div>
+                    <div class="experience-role">Création de sites web statiques</div>
+                    <ul class="experience-tasks">
+                        <li>Conception d’un site vitrine pour une petite entreprise (accueil, services, contact).</li>
+                        <li>Stylisation des menus de navigation, boutons et icônes</li>
+                        <li>Création de pages web responsives (mobile, tablette, PC)</li>
+                        <li>Site vitrine pour un artisan local (boulangerie, coiffure, etc.)</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-period">2023 - 2025</div>
+                    <div class="experience-role">Développeur Frontend  Entreprise Mandela</div>
+                    <ul class="experience-tasks">
+                        <li>Refonte de sites internet</li>
+                        <li>Webdesign (conception de maquette de site web)</li>
+                        <li>Maintenance et mise à jour de sites web</li>
+                        <li>Relation avec les clients</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Formations Section -->
+            <div id="formations" class="content-section">
+                <h2 class="section-title">FORMATIONS</h2>
+
+                <div class="experience-item">
+                    <div class="experience-period">2021 - 2024</div>
+                    <div class="experience-role">Licence en Informatique</div>
+                    <ul class="experience-tasks">
+                        <li>Web développement</li>
+                        <li>Algorithmique et structures de données</li>
+                        <li>Systèmes d'exploitation</li>
+                        <li>Réseaux informatiques</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Competences Section -->
+            <div id="competences" class="content-section">
+                <h2 class="section-title">COMPÉTENCES</h2>
+                
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name html">
+                            <span>HTML</span>
+                            <span>97%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress html" data-width="97%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-name css">
+                            <span>CSS</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress css" data-width="90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-name javascript">
+                            <span>JAVASCRIPT</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress javascript" data-width="90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-name php">
+                            <span>PHP</span>
+                            <span>97%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress php" data-width="97%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-name angular">
+                            <span>Angular 4, Vuejs</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress angular" data-width="95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-name bootstrap">
+                            <span>Bootstrap</span>
+                            <span>96%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress bootstrap" data-width="96%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name angular">
+                            <span>Python</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress angular" data-width="90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name angular">
+                            <span>Django</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress angular" data-width="85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Langues Section -->
+            <div id="langues" class="content-section">
+                <h2 class="section-title">LANGUES PARLÉES</h2>
+                
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name html">
+                            <span>Français</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress html" data-width="95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-name css">
+                            <span>Anglais</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress css" data-width="80%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Centres d'intérêt Section -->
+            <div id="centres" class="content-section">
+                <h2 class="section-title">CENTRES D'INTÉRÊT</h2>
+                
+                  <div class="interest-item">
+                    <div class="interest-title">⚽ Sport</div>
+                    <p class="interest-description">Football en club local et course à pied pour maintenir une bonne condition physique.</p>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-title">🎵 Musique</div>
+                    <p class="interest-description">Pratique de la guitare et composition de mélodies durant mon temps libre.</p>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-title">🎮 Gaming</div>
+                    <p class="interest-description">Développement de jeux web et passion pour les nouvelles technologies de gaming.</p>
+                </div>
+
+
+            <!-- Qualités Section -->
+            <div id="qualites" class="content-section">
+                <h2 class="section-title">QUALITÉS</h2>
+                
+                <div class="interest-item">
+                    <div class="interest-title">💡 Créativité</div>
+                    <p class="interest-description">Capacité à trouver des solutions innovantes et à créer des interfaces utilisateur attrayantes.</p>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-title">🎯 Rigueur</div>
+                    <p class="interest-description">Attention aux détails et respect des bonnes pratiques de développement.</p>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-title">🤝 Travail d'équipe</div>
+                    <p class="interest-description">Excellentes compétences de communication et collaboration avec les équipes techniques.</p>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-title">📈 Adaptabilité</div>
+                    <p class="interest-description">Capacité d'apprentissage rapide des nouvelles technologies et frameworks.</p>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div id="contact" class="content-section">
+                <div class="contact-section">
+                    <h2 class="section-title">CONTACT</h2>
+                    <div class="contact-info">
+                        <p>📧 Email: <a href="mailto:tsaradino8@gmail.com">tsaradino8@gmail.com</a></p>
+                        <p>💼 Développeur Front-end</p>
+                        <p>🌍 Disponible pour projets freelance et missions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll and active menu highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+            
+            // Add click event to navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animate skill bars when they come into view
+            const observerOptions = {
+                threshold: 0.3,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const section = entry.target;
+                        if (section.id === 'competences' || section.id === 'langues') {
+                            animateSkillBars(section);
+                        }
+                        
+                        // Update active navigation
+                        updateActiveNav(section.id);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Initial skill bar animation for visible sections
+            setTimeout(() => {
+                const competencesSection = document.getElementById('competences');
+                const languesSection = document.getElementById('langues');
+                
+                if (isElementInViewport(competencesSection)) {
+                    animateSkillBars(competencesSection);
+                }
+                if (isElementInViewport(languesSection)) {
+                    animateSkillBars(languesSection);
+                }
+            }, 1000);
+        });
+
+        function animateSkillBars(section) {
+            const skillBars = section.querySelectorAll('.skill-progress');
+            skillBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width;
+                }, index * 200);
+            });
+        }
+
+        function updateActiveNav(sectionId) {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + sectionId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Handle window scroll for navigation highlighting
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.content-section');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    currentSection = section.id;
+                }
+            });
+
+            if (currentSection) {
+                updateActiveNav(currentSection);
+            }
+        });
+    </script>
+</body>
+</html>
